@@ -1,0 +1,222 @@
+.my-form {
+    text-align: center;
+    border: solid 1px #cccccc;
+    border-radius: 5px;
+    padding: 50px;
+  }
+
+
+.field {
+    height: 50px;
+    width: 350px;
+    margin: 20px 0px;
+    font-size: 11pt;
+    padding: 8px 15px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+  }
+
+.pri-btn {
+    background-color: #5f5fcf;;
+    color: #ffffff;
+    width: 113px;
+    height: 47px;
+  }
+  
+.pri-btn:hover {
+    background-color: #5fcf85;
+    color: #ffffff;
+  }
+
+.form-btn {
+    width: 100%;
+  }
+
+.signup-btn {
+    background: #e6e6e6;
+    color: #606568;
+  }
+  
+.signup-btn:hover {
+    background: #e6e6e6;
+    color: #606568;
+    -webkit-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  
+.event-btns{
+    background-color: #5f5fcf;
+    color: white;
+    transition-duration: 0.25s;
+}
+
+.event-btns:hover{
+    background-color: #4444bd;
+    color: white;
+    transition-duration: 0.25s;
+}
+
+.border-left-event{
+    border-bottom: solid 3px #5f5fcf;
+}
+
+.btn-grey-out{
+  background-color: none;
+  border-radius: 5px;
+  border: solid 2px #606568;
+  color: #606568;
+  padding: 15px;
+  transition-duration: 0.25s;
+}
+
+.btn-grey-out:hover{
+  background-color: #606568;
+  color: white;
+  transition-duration: 0.25s;
+}
+
+.all-member-img{
+  width: 140px;
+  height: 140px;
+  border-radius: 100%;
+
+}
+
+.profile-link{
+  transition-duration: 0.25s;
+}
+
+.profile-link:hover{
+  color:black;
+  cursor: pointer;
+  transition-duration: 0.25s;
+}
+
+.notification {
+  color: white;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  border-radius: 2px;
+  margin: auto 10px;
+}
+
+
+.notification .badge {
+  position: absolute;
+  top: -10px;
+  right: -5px;
+  padding: 5px;
+  border-radius: 30px;
+  background-color: red;
+  color: white;
+}
+
+.notification-icon{
+  color:white;
+  background-color: #5f5fcf;
+  border-radius: 100%;
+  padding: 8px;
+  margin: auto 5px;
+  cursor: pointer;
+  position: relative;
+}
+
+.head-notify{
+  color: #5f5fcf;
+}
+
+.sec_img{
+  box-shadow:5px 5px 18px #cccccc;
+  width: 100%;
+  margin: 10px auto;
+  height: 220px;
+  border-radius: 10px;
+  /* border: solid 1px #cccccc; */
+}
+
+.applyFildersBtn{
+  background-color: #5f5fcf;
+  color: white;
+  height: 60px;
+  font-size: 20px;
+  transition-duration: 0.25s;
+}
+
+.applyFildersBtn:hover{
+  color: white;
+  background-color: #4444bd;
+  transition-duration: 0.25s;
+}
+
+.dateHeaders{
+  background-color: white; 
+  border: solid 1px #5f5fcf;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #069f33;
+  transition-duration: 0.25s;
+}
+
+.text-lightgrey{
+    color: #cccccc;
+}
+
+.add_review_icon{
+  background-color: #5f5fcf;
+  color: white;
+  border-radius: 100%;
+  padding: 3px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+
+.text-pri{
+  color: #5f5fcf;
+  font-size: 20px;
+}
+
+.profile{
+  border: solid 1px #cccccc;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.dateHeaders:hover{
+  background-color: #f2fbf5;
+  transition-duration: 0.25s;
+}
+
+
+.hhh tr{
+  padding: 0px;
+  margin: 0px;
+}
+
+.hhh td{
+  padding: 0px;
+  border: none;
+}
+
+.tdr{
+  text-align: right;
+}
+
+@media only screen and (max-width: 500px) {
+    .abc{
+      padding-right: 40px;
+    }
+
+    .my-form {
+        padding: 0px;
+        width: 100%;
+        border: none;
+        margin-left: 20px;
+      }
+    
+    .field {
+        width: 100%;
+      }
+
+  }

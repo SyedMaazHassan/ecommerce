@@ -1,0 +1,1130 @@
+{% load static %}
+
+{% include 'inc/head.inc.html' %}
+
+<body>
+
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add card details</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+      <form method="POST" action="">
+        {% csrf_token %}
+      <div class="modal-body">
+        <b>Note:</b> once you entered the card details, it can't be changed, so be carefull while entering card details
+        <br>
+        <hr>
+          {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{request.GET.next}}">
+          {% endif %}
+          
+          <div class="row">
+            <div class="col-sm-12">
+              <input class="field form-control my-2" style="width: 100%;" id="card_num" name="card_num" type="text" pattern="[0-9]+" title="User numbers only" minlength="16" maxlength="16" placeholder="Card number" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <input class="field form-control my-2" style="width: 100%" id="exp_date" name="exp_date" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="EXP date" required>                    
+
+            </div>
+            <div class="col-sm-6">
+              <input class="field form-control my-2" style="width: 100%;" id="cvv_num" name="cvv_num" type="text" pattern="[0-9]+"  minlength="3" maxlength="3" placeholder="CVV number" required>
+            </div>
+          </div>
+
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-secondary">Save card details</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- Add products -->
+<div class="modal fade" id="add_product">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add Product</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+      <form method="POST" action="addProduct" enctype="multipart/form-data">
+        {% csrf_token %}
+      <div class="modal-body">
+        
+        <hr>
+          {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{request.GET.next}}">
+          {% endif %}
+          <div class="row mb-3">
+            <div class="col-sm-12">
+              <div class="p-0" style="width:100%; margin:auto; text-align:center">
+                <div>
+                    <img id="blah" onclick="upload_img('pic');" style="width:250px; margin:auto; cursor:pointer; border-radius: 10px;" src="{% static 'img/add_main.png' %}" alt="Card image">
+                </div>
+            
+                <div style="height:0px; overflow:hidden">
+                    <input type="file" id="pic" onchange="readURL(this, 'blah');" name="image" required>
+
+                </div>
+
+                <!-- <button type="button" class="form-control btn btn-outline-secondary" onclick="upload_img();">Choose profile img</button> -->
+
+              </div>
+            </div>
+
+           
+          </div>
+
+          <div class="row mb-3">
+      
+              <div class="col-sm-4 py-2">
+                <div class="p-0" style="width:100%; margin:auto; text-align:center">
+                  <div>
+                      <img id="blah2" onclick="upload_img('pic2');" style="width:100px; margin:auto; cursor:pointer; border-radius: 10px;" src="{% static 'img/add.png' %}" alt="Card image">
+                  </div>
+              
+                  <div style="height:0px; overflow:hidden">
+                      <input type="file" id="pic2" onchange="readURL(this, 'blah2');" name="image2">
+  
+                  </div>
+  
+                  <!-- <button type="button" class="form-control btn btn-outline-secondary" onclick="upload_img();">Choose profile img</button> -->
+  
+                </div>
+                
+              </div>
+
+              <div class="col-sm-4 py-2">
+                <div class="p-0" style="width:100%; margin:auto; text-align:center">
+                  <div>
+                      <img id="blah3" onclick="upload_img('pic3');" style="width:100px; margin:auto; cursor:pointer; border-radius: 10px;" src="{% static 'img/add.png' %}" alt="Card image">
+                  </div>
+              
+                  <div style="height:0px; overflow:hidden">
+                      <input type="file" id="pic3" onchange="readURL(this, 'blah3');" name="image3">
+  
+                  </div>
+  
+                  <!-- <button type="button" class="form-control btn btn-outline-secondary" onclick="upload_img();">Choose profile img</button> -->
+  
+                </div>
+                
+              </div>
+
+              <div class="col-sm-4 py-2">
+                <div class="p-0" style="width:100%; margin:auto; text-align:center">
+                  <div>
+                      <img id="blah4" onclick="upload_img('pic4');" style="width:100px; margin:auto; cursor:pointer; border-radius: 10px;" src="{% static 'img/add.png' %}" alt="Card image">
+                  </div>
+              
+                  <div style="height:0px; overflow:hidden">
+                      <input type="file" id="pic4" onchange="readURL(this, 'blah4');" name="image4">
+  
+                  </div>
+  
+                  <!-- <button type="button" class="form-control btn btn-outline-secondary" onclick="upload_img();">Choose profile img</button> -->
+  
+                </div>
+                
+              </div>
+
+       
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <input class="field form-control my-2" style="width: 100%;" name="product_name" type="text"  placeholder="Product name" required>
+            </div>
+            <div class="col-sm-6">
+              <input class="field form-control my-2" style="width: 100%;" name="product_price" type="number" min="1" placeholder="Product price" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <input class="field form-control my-2" style="width: 100%;" name="product_tagline" type="text"  placeholder="Product tagline" required>
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <textarea class="form-control my-2" style="height: 100px; width: 100%;" name="product_desc" placeholder="Product description"></textarea>
+            </div>
+          </div>
+
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-secondary">Save product</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- add other info -->
+
+<div class="modal fade" id="my_other_info">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add personal details</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+      <form method="POST" action="completeProfile">
+        {% csrf_token %}
+      <div class="modal-body">
+        
+          {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{request.GET.next}}">
+          {% endif %}
+          <div class="row">
+            <div class="col-sm-12">
+              <input class="field form-control my-2" style="width: 100%;" name="phone" type="text" pattern="[0-9]+" title="Use numbers only" maxlength="13" placeholder="Phone number" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <input class="field form-control my-2" style="width: 100%;" name="city" type="text"placeholder="City" required>
+
+            </div>
+            <div class="col-sm-6">
+              <input class="field form-control my-2" style="width: 100%;" name="country" type="text" placeholder="Country" required>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <input class="field form-control my-2" style="width: 100%;" name="postcode" type="text" placeholder="Postcode" required>
+
+            </div>
+            <div class="col-sm-6">
+              <input class="field form-control my-2" style="width: 100%;" name="national_id" type="text" pattern="[0-9]+" maxlength="16" placeholder="National ID number" required>
+            </div>
+          </div>
+
+          <br>
+          <h4>
+            University information
+          </h4>
+
+          
+          <div class="row">
+            <div class="col-sm-12">
+              <input class="field form-control my-2" style="width: 100%;" name="uni_name" type="text" placeholder="Univeristy name" required>
+
+            </div>
+            
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <input class="field form-control my-2" style="width: 100%;" name="uni_id" type="text" placeholder="Student ID" required>
+            </div>
+            <div class="col-sm-6">
+              <input class="field form-control my-2" style="width: 100%;" name="uni_year" type="text" maxlength="4" placeholder="Current university year" required>
+
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <input class="field form-control my-2" style="width: 100%;" name="uni_subject" type="text" placeholder="Univeristy subject" required>
+
+            </div>
+            
+          </div>
+
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-secondary">Save info</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="creditDetails">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Card details</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+      
+      <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <h5>Balance &nbsp; <span style="color: #5f5fcf;">${{credit_details.balance}}</span></h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <br>
+              <h5>Card Number</h5>
+              <input class="field form-control my-2" style="width: 100%;" type="text"  placeholder="Card number" value="{{credit_details.card_number}}" readonly>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <br>
+              <h5>EXP date</h5>
+              <input class="field form-control my-2" style="width: 100%;"   type="text" placeholder="EXP date" value="{{credit_details.exp_date}}" readonly>
+            </div>
+            <div class="col-sm-6">
+              <br>
+              <h5>CVV number</h5>
+              <input class="field form-control my-2" style="width: 100%;" type="text"  minlength="3" maxlength="3" placeholder="CVV number" value="{{credit_details.cvv_number}}" readonly>
+            </div>
+          </div>
+
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+  <!-- navbar start -->
+  {% include 'inc/navBar.inc.html' %}
+  <!-- navbar end -->
+
+
+<!-- this member section -->
+<br>
+<br>
+<br>
+<main id="main" data-aos="fade-in">
+
+  <!-- ======= Breadcrumbs ======= -->
+
+  <br>
+  <br>
+  <br>
+  <br>
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 my-3">
+        <div class="profile p-4">
+
+            <img src="media/profilePics/{{user.last_name}}" class="my-3" style="width: 110px; height:110px; border-radius: 100%; border:solid 1px grey" alt="">
+     
+            <hr class="p-0 py-0">
+
+            
+
+            <div class="row my-4" style="text-align: left;">
+                <div class="col-1 px-4 d-flex justify-content-right align-items-center">
+                    <i class="material-icons info-icon">person</i>
+                </div>
+                <div class="col-10" style="padding-left: 30px;">
+                    <p class="info-head text-pri">Full Name</p>
+                    <p class="info-sub-head">{{user.first_name}}</p>
+
+                </div>
+            </div>
+
+            <div class="row my-4" style="text-align: left;">
+                <div class="col-1 px-4 d-flex justify-content-right align-items-center">
+                    <i class="material-icons info-icon">email</i>
+                </div>
+                <div class="col-10" style="padding-left: 30px;">
+                    <p class="info-head text-pri">Email</p>
+                    <p class="info-sub-head">{{user.username}}</p>
+
+                </div>
+            </div>
+
+            <div class="row my-4" style="text-align: left;">
+              <div class="col-1 px-4 d-flex justify-content-right align-items-center">
+                  <i class="material-icons info-icon">today</i>
+              </div>
+              
+              <div class="col-10" style="padding-left: 30px;">
+                  <p class="info-head text-pri">Date of birth</p>
+                  <p class="info-sub-head">{{user.email}}</p>
+
+              </div>
+
+
+          </div>
+
+          {% if credit_status %}
+            <button class="btn btn-block btn-secondary" type="button" data-toggle="modal" style="height: 50px;" data-target="#creditDetails">See card details</button>
+
+          {% else %}
+            <button class="btn btn-block event-btns" type="button" data-toggle="modal" style="height: 50px;" data-target="#myModal">Add card details</button>
+
+          {% endif %}
+
+
+          {% if not isSeller %}
+
+
+            <button class="btn btn-block event-btns" type="button" data-toggle="modal" style="height: 50px;" data-target="#my_other_info">Complete your profile</button>
+
+          {% endif %}
+
+            
+        </div>
+
+         
+      </div>
+
+      <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 my-3">
+        {% if isSeller %}
+        <div class="row mb-3">
+          <div class="col-sm-4 py-2">
+            
+            <a href="profile?section=products">
+              {% ifequal request.GET.section 'products' %}
+                <button type="button" class="btn event-btns btn-block">Products</button>
+              {% else %}
+                <button type="button" class="btn btn-outline-secondary btn-block">Products</button>
+
+              {% endifequal %}
+            </a>
+          </div>
+
+          <div class="col-sm-4 py-2">
+            <a href="profile?section=received_orders">
+              {% ifequal request.GET.section 'received_orders' %}
+                <button type="button" class="btn event-btns btn-block">Received orders</button>
+              {% else %}
+                <button type="button" class="btn btn-outline-secondary btn-block">Received orders</button>
+
+              {% endifequal %}
+            </a>
+          </div>
+
+          <div class="col-sm-4 py-2">
+            <a href="profile?section=placed_orders">
+              {% ifequal request.GET.section 'placed_orders' %}
+                <button type="button" class="btn event-btns btn-block">Placed orders</button>
+              {% else %}
+                <button type="button" class="btn btn-outline-secondary btn-block">Placed orders</button>
+
+              {% endifequal %}
+            </a>
+           
+          </div>
+        </div>
+
+        {% else %}
+<!-- 
+        <div class="row">
+          
+
+          <div class="col-sm-4 py-2">
+            <a href="profile?section=orders">
+              {% ifequal request.GET.section 'orders' %}
+                <button type="button" class="btn event-btns btn-block">Received orders</button>
+              {% else %}
+                <button type="button" class="btn btn-outline-success btn-block">Orders</button>
+
+              {% endifequal %}
+            </a>
+          </div>
+
+          
+        </div> -->
+
+        {% endif %}
+
+
+       
+
+        <!-- products section -->
+        {% if isSeller %}
+
+        {% ifequal request.GET.section 'products' %}
+        <hr>
+
+
+        <div class="row my-0 py-0">
+          <div class="col-sm-8 py-2">
+            <h2>All added products</h2>
+
+          </div>
+
+          <div class="col-sm-4 py-2">
+            <button type="button" class="btn event-btns btn-block my-0" data-toggle="modal" data-target="#add_product">Add product</button>
+          </div>
+
+
+        </div>
+
+
+        <hr>
+
+
+        {% if not all_products %}
+          <h3 class="my-5">You have not added any product yet!</h3>
+
+        {% endif %}
+
+        <div class="row" data-aos="zoom-in" data-aos-delay="100">
+        
+            {% for product in all_products %}
+              
+              {% include 'inc/product_section.inc.html' %}
+  
+            {% endfor %}
+      
+        </div>
+
+        {% endifequal %}
+
+          <!-- products section end -->
+
+
+        {% else %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          You have to complete your profile to sell products
+
+        </div>
+        
+        <script>
+          $(".alert").alert();
+        </script>
+        {% endif %}
+
+
+
+
+
+        <!-- cart section -->
+
+        {% ifequal request.GET.section 'cart' %}
+      
+
+        
+        {% if all_cart_items %}
+          <div class="row mb-3">
+            <div class="col-sm-9 py-2">
+              <h4 class="" style="color: #5f5fcf;">Order summary</h4>
+
+            </div>
+            <div class="col-sm-3 py-2">
+              <button type="button" onclick="confirm_order()" class="btn event-btns btn-block">Confirm order</button>
+            </div>
+          </div>
+          <table class="table table-striped table-inverse">
+            <thead class="thead-inverse">
+              <tr>
+                <th>Total items</th>
+                <th>Subtotal</th>
+                <th>Discount</th>
+                <th>Total</th>
+
+              </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{total_items}}</td>
+                  <td>$<span id="subtotal_bill">{{total_bill}}</span></td>
+                  <td>0%</td>
+                  <td>$<span id="total_bill">{{total_bill}}</span></td>
+                </tr>
+                
+              </tbody>
+          </table>
+          <br>
+
+          <div class="row">
+            {% for item in all_cart_items %}
+              <div class="col-sm-12 mb-4">
+                <div class="p-3" style="box-shadow:5px 5px 18px #cccccc; border-radius: 10px;">
+                  <div class="row">
+                      <div class="col-sm-2">
+                        <img src="media/{{item.product.product_primary_image}}" style="width: 90px; height:90px; border-radius: 5px;" alt="">
+                      </div>
+
+                      <div class="col-sm-4">
+                          <div>
+                            <h5 class="my-2" style="color: #5f5fcf;">
+                              <b>{{item.product.product_name}}</b>
+                            </h5>
+
+                            <h6 class="my-2"><b>Price</b> &nbsp; ${{item.product.product_price}}/piece</h6>
+                          </div>
+                        
+                          
+
+                          
+                      </div>
+                      <div class="col-sm-2">
+                        <div>
+                          <h5 class="my-2">
+                            <b>Qty</b><br>
+                          </h5>
+                          <input type="number" min="1" max="100" style="width:70px;" class="form-control my-2" value="{{item.quantity}}" onchange="update_cart('{{item.id}}', this.value)" name="" id="">
+                          <p id="error_{{item.id}}" class="text-danger"></p>
+                        </div>
+                    
+
+                    
+                      </div>
+
+                      <div class="col-sm-2">
+                        <div>
+                          <h5 class="my-2">
+                            <b>Amount</b><br>
+                          </h5>
+                          <h5 class="my-2" id="">$<span id="amount_{{item.id}}">{{item.amount}}</span></h5>
+                        </div>
+                      
+                      </div>
+
+                      <div class="col-sm-2 d-flex justify-content-center align-items-center">
+                          <i onclick="delete_cart_item('{{item.id}}')" class="material-icons text-danger" title="remove this item" style="cursor: pointer;">delete</i>
+                      </div>
+                  </div>
+
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+    
+        {% else %}
+          <br>
+          <h3>Your cart is empty</h3>
+          <a href="all_products">
+            <button type="button" class="btn event-btns">Choose products</button>
+
+          </a>
+        {% endif %}
+
+        {% endifequal %}
+
+
+        <!-- end cart section -->
+
+
+        {% ifequal request.GET.section 'placed_orders' %}
+        <h3 class="mb-4" style="color: #5f5fcf;">All orders</h3>
+        {% if not all_orders %}
+            <h3>No order placed</h3>
+        {% endif %}
+
+        <div class="row">
+
+          {% for order in all_orders %}
+          <div class="col-sm-12 mb-4">
+            <div class="p-3" style="box-shadow:5px 5px 18px #cccccc; border-radius: 10px;">
+              <table class="table table-borderless">
+                <thead>
+                  <tr>
+                    <th>Seller</th>
+                    <th>Items</th>
+                    <th>Bill</th>
+                    <th>Date & time</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      {{order.order_seller.first_name}}
+                    </td>
+                    <td>{{order.total_items}}</td>
+                    <td>${{order.total_bill}}</td>
+                    <td>{{order.dateTime}}</td>
+                    {% if order.status == 0 %}
+                      <td class="text-success">
+                        <div style="background-color:#00668c; color: white; text-align: center; border-radius: 9px;">
+                          In process
+                        </div>
+                      </td>
+                      
+                    {% elif order.status == 1 %}
+                      <td>
+                        
+                        <!-- <div style="background-color:#ff0090; color: white; text-align: center; border-radius: 9px;">
+                          Delivered
+                        </div> -->
+                        <button type="button" onclick="order_received('{{order.id}}')" class="btn event-btns">Receive</button>
+                      </td>
+
+                    {% elif order.status == 2 %}
+
+                      <td class="text-success">
+                        <div style="background-color:#5f5fcf; color: white; text-align: center; border-radius: 9px;">
+                          Completed
+                        </div>
+                      </td>
+
+                    {% endif %}
+                  </tr>
+                 
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+          {% endfor %}
+        </div>
+
+
+
+
+        {% endifequal %}
+
+
+
+        {% ifequal request.GET.section 'received_orders' %}
+
+        <h3 class="mb-4" style="color: #5f5fcf;">All received orders</h3>
+        {% if not all_orders %}
+            <h3>No order received</h3>
+        {% endif %}
+
+        <div class="row">
+
+          {% for order in all_orders %}
+          <div class="col-sm-12 mb-4">
+            <div class="p-2" style="box-shadow:5px 5px 18px #cccccc; border-radius: 10px;">
+              <table class="table table-borderless">
+                <thead>
+                  <tr>
+                    <th>Buyer</th>
+                    <th>Items</th>
+                    <th>Bill</th>
+                    <th>Date & time</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      {{order.order_buyer.first_name}}
+                    </td>
+                    <td>{{order.total_items}}</td>
+                    <td>${{order.total_bill}}</td>
+                    <td>{{order.dateTime}}</td>
+                    {% if order.status == 2 %}
+                      <td class="text-success">
+                        <div style="background-color:#5f5fcf; color: white; text-align: center; border-radius: 9px;">
+                          Completed
+                        </div>
+                      </td>
+                      
+                    {% elif order.status == 1 %}
+                      <td>
+                        
+                        <div style="background-color:#ff0090; color: white; text-align: center; border-radius: 9px;">
+                          Delivered
+                        </div>
+                      </td>
+
+                    {% elif order.status == 0 %}
+
+                    <td>
+                      <button type="button" onclick="mark_order_as_complete('{{order.id}}')" class="my-0 btn event-btns btn-block">Complete it</button>
+                    
+                    </td>
+
+                    {% endif %}
+                  </tr>
+                 
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+          {% endfor %}
+        </div>
+
+
+
+
+
+
+        {% endifequal %}
+
+
+
+
+
+        <!-- <h2>Booked Excursion</h2> -->
+      
+        <!-- {% if USER.isBooked %}
+
+          {% for booked_ex_info in USER.all_bd %}
+       
+          <div class="card mt-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-11">
+                  <h4 class="card-title mt-2" style="color: #5f5fcf;">{{booked_ex_info.event_name}}</h4>
+
+                </div>
+                <div class="col-sm-1">
+                  {% if booked_ex_info.isCompleted %}
+                  <i class="material-icons mt-2" title="Trip completed" style="color: white; background-color: #5f5fcf; border-radius: 100%;">done</i>
+                  {% endif %}
+                </div>
+              </div>
+            
+              <hr>
+
+              <div class="row">
+                <div class="col-sm-12">
+
+                    <h5 class="mt-2">Departure details</h5>
+                    <div class="row my-2">
+                      <div class="col-sm-4 d-flex my-2">
+                        <i class="material-icons datetimeIcon">today</i>
+                        <p class="mx-2" id="depAmount_set" style="font-size: 15px;">{{booked_ex_info.deptDate}}</p>
+                      </div>
+
+                      <div class="col-sm-3 d-flex my-2">
+                        <i class="material-icons datetimeIcon">access_time</i>
+                        <p class="mx-2" id="depAmount_set" style="font-size: 15px;">{{booked_ex_info.deptTime}}</p>
+                      </div>
+
+                      <div class="col-sm-5 d-flex my-2">
+                        <i class="material-icons datetimeIcon">location_on</i>
+                        <p class="mx-2" id="depAmount_set" style="font-size: 15px;">{{booked_ex_info.deptPoint}}</p>
+                      </div>
+                   
+                    </div>
+                    <h5 class="mt-2">Return details</h5>
+                    <div class="row my-2">
+                      <div class="col-sm-4 d-flex my-2">
+                        <i class="material-icons datetimeIcon">today</i>
+                        <p class="mx-2" id="depAmount_set" style="font-size: 15px;">{{booked_ex_info.retDate}}</p>
+                      </div>
+
+                      <div class="col-sm-3 d-flex my-2">
+                        <i class="material-icons datetimeIcon">access_time</i>
+                        <p class="mx-2" id="depAmount_set" style="font-size: 15px;">{{booked_ex_info.rettTime}}</p>
+                      </div>
+
+                      <div class="col-sm-5 d-flex my-2">
+                        <i class="material-icons datetimeIcon">location_on</i>
+                        <p class="mx-2" id="depAmount_set" style="font-size: 15px;">{{booked_ex_info.rettPoint}}</p>
+                      </div>
+                   
+                    </div>
+                    <table class="table table-striped" style="text-align: center;">
+                      <thead>
+                        <tr>
+                          <th>Amount per person</th>
+                          <th>Total members</th>
+                          <th>Total Bill</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>&euro; {{booked_ex_info.amount_per_person}}</td>
+                          <td>{{booked_ex_info.total_members}}</td>
+                          <td>&euro; {{booked_ex_info.total_amount}}</td>
+                        </tr>
+                 
+                      </tbody>
+                    </table>
+
+                   
+                </div>
+             
+              </div>  
+
+              <a href="excursion/{{booked_ex_info.event_id}}">
+                <button type="button" class="btn event-btns btn-block">Go to Excursion</button>
+
+              </a>
+
+
+            </div>
+          </div>
+
+          {% endfor %}
+
+          
+
+          
+
+       
+          
+        {% else %}
+          <hr>
+          <div class="my-5">
+            <h2>No Booked Event exists</h2>
+            <a href="excursions">
+              <button class="btn event-btns my-3 px-3" type="button" style="height: 50px;">Go to Excursions</button>
+
+            </a>
+
+          </div>
+
+        {% endif %} -->
+      </div>
+    </div>
+
+
+
+  </div>
+  <hr>
+
+  <!-- ======= Courses Section ======= -->
+  <!-- <section id="popular-courses" class="courses">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <p>Events</p>
+      </div>
+
+      <div class="row" data-aos="zoom-in" data-aos-delay="100">
+        {% if events %}
+          {% for event in events %}
+            
+            {% include 'inc/eventSection.inc.html' %} 
+
+          {% endfor %}
+        {% else %}
+          <h2>No event created</h2>
+        {% endif %}
+      </div>
+
+    </div>
+  </section> -->
+  <!-- End Courses Section -->
+
+</main>
+<!-- End #main -->
+  
+
+
+
+  <!-- end this member -->
+
+
+
+  <!-- footer start -->
+  {% include 'inc/footer.inc.html' %} 
+
+  <!-- footer end  -->
+
+  {% include 'inc/bottomLinks.inc.html' %} 
+
+</body>
+
+<script>
+  function add_like(sender_id, receiver_id){
+    $.ajax({
+      url: 'add_like',
+      type: 'GET',
+      data: 'sender='+sender_id.toString()+'&receiver='+receiver_id.toString(),
+      success: function(){
+        $("#like_updates").load(location.href+" #like_updates>*","");
+      }
+    });
+  }
+
+  function send_friend_request(sender_id, receiver_id){
+    console.log(sender_id);
+    console.log(receiver_id);
+    $.ajax({
+      url: 'send_request',
+      type: 'GET',
+      data: 'request_sender='+sender_id.toString()+'&request_receiver='+receiver_id.toString(),
+      success: function(){
+        $("#like_updates").load(location.href+" #like_updates>*","");
+      }
+    });
+  }
+
+  function upload_img(target_id) {
+        $("#"+target_id).click();
+    }
+
+  function readURL(input, target_id) {
+        nameFile = input.files[0].name.split(".");
+        nameFile = nameFile[nameFile.length-1];
+        console.log(nameFile);
+        if(nameFile=="jpg" || nameFile=="jpeg" || nameFile=="png"){
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+    
+                reader.onload = function (e) {
+                    if (target_id=='blah') {
+                      $('#'+target_id)
+                        .attr('src', e.target.result)
+                        .width('100%')
+                        .height(350);
+                      
+                    }else{
+                      $('#'+target_id)
+                        .attr('src', e.target.result)
+                        .width('100%')
+                        .height(100);
+
+                    }
+                    
+                  };
+    
+                reader.readAsDataURL(input.files[0]);
+            }
+        }else{
+            $("#mainDiv").load(location.href + " #mainDiv>*", "");
+            alert("Invalid file type!");
+        }
+        
+    }
+
+    function update_cart(item_id, updated_value) {
+       
+        if (updated_value < 1 || updated_value > 100) {
+          $(`#error_${item_id}`).text("Invalid qty!")
+        }else{
+          $(`#error_${item_id}`).text("");
+          console.log(item_id);
+          console.log(updated_value);
+
+          $.ajax({
+            url: "{% url 'update_cart' %}",
+            type: 'GET',
+            data: `item_id=${item_id}&updated_qty=${updated_value}`,
+            success: (response)=>{
+              console.log(response)
+              $(`#amount_${item_id}`).text(response.updated_amount.toFixed(1));
+              $(`#subtotal_bill`).text(response.updated_bill.toFixed(1));
+              $(`#total_bill`).text(response.updated_bill.toFixed(1));
+
+            }
+          })
+
+        }
+    }
+
+
+    function delete_cart_item(item_id) {
+      console.log(item_id);
+      if (confirm("Are you sure to remove this item from the cart ?")) {
+
+        $.ajax({
+          url: "{% url 'delete_cart_item' %}",
+          type: 'GET',
+          data: `item_id=${item_id}`,
+          success: (response)=>{
+              console.log(response)
+              location.reload();
+          }
+        })
+        
+      }
+        
+    }
+
+    function confirm_order() {
+      if (confirm("Are you sure to confirm the order?")) {
+          $.ajax({
+            url: "{% url 'confirm_order' %}",
+            type: 'GET',
+            data: `confirmed=1`,
+            success: (response)=>{
+              if (response.status == 0) {
+                alert("Sorry! You have no enough balance to confirm this order");
+              }else{
+                alert("Your order has been placed successfully");
+                location.reload();
+              }
+
+            }
+          })
+      }
+    }
+
+
+    function mark_order_as_complete(order_id) {
+      if (confirm("Are you sure to complete this order ?")) {
+        console.log(order_id);
+        $.ajax({
+          url: "{% url 'complete_order' %}",
+          type: 'GET',
+          data: `order_id=${order_id}`,
+          success: (response)=>{
+            if (response.status == 1) {
+              alert("Order has been delivered, and waiting for buyer's response");
+              location.reload();
+            }
+          }
+        })
+      }
+    }
+
+
+    function order_received(order_id) {
+      if (confirm("Are you sure that you have received this order ?")) {
+        console.log(order_id);
+        $.ajax({
+          url: "{% url 'order_received' %}",
+          type: 'GET',
+          data: `order_id=${order_id}`,
+          success: (response)=>{
+            if (response.status == 1) {
+              alert("Order has been mark as completed, Thanks for using our service.");
+              location.reload();
+            }
+          }
+        })
+      }
+    }
+
+
+
+    
+
+
+
+
+</script>
+
+</html>

@@ -1,0 +1,38 @@
+{% load static %}
+
+{% include 'inc/head.inc.html' %}
+
+<body style="background-color: #ffffff;">
+
+    <div class="row" style="width: 100%;">
+        <div class="col-12 d-flex justify-content-center align-items-center" style="min-height: 100vh">
+            <div class="my-form">
+                
+                <form autocomplete="off" style="text-align:center;" action="authentication" method="POST">
+                    {% csrf_token %}
+                    <!-- <i class="material-icons pro">account_circle</i> -->
+                    <!-- <img src="{% static 'img/exe_logo.jpg' %}" class="my-3" style="text-align: center; width:200px;" alt=""> -->
+                    <h4 class="mt-3 mb-5">Enter code here!</h4>
+                    
+                    <input class="field form-control" id="s_code" name="s_code" type="text" maxlength="6"  placeholder="Enter security code" required>
+                    <p id="error" 
+                        style="
+                            text-align: left; 
+                            transition-duration:0.25s;
+                            color:#ed4337;"
+                        >
+                        {% for message in messages %}
+                            {{message}}
+                        {% endfor %}
+                    </p>
+                    <button class="btn pri-btn form-btn" type="submit">Submit</button>        
+                    <!-- <p class="my-4">Never registered before?</p>
+                    <a href="signup"><button class="btn pri-btn form-btn signup-btn" type="button">SIGNUP</button></a> -->
+                </form>
+
+            </div>
+        </div>
+    </div>    
+</body>
+
+</html>

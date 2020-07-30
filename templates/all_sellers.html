@@ -1,0 +1,93 @@
+{% load static %}
+
+{% include 'inc/head.inc.html' %}
+
+<body>
+
+  <!-- navbar start -->
+  {% include 'inc/navBar.inc.html' %} 
+  <!-- navbar end -->
+
+
+<!-- member section -->
+  <br>
+  <br>
+  <br>
+
+
+  <section id="popular-courses" class="courses">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <p>All sellers</p>
+      </div>
+
+    
+
+      <div class="row">
+          {% for seller in all_sellers %}
+          <div class="col-sm-4 text-center">
+              <div class="p-4" style="border-radius: 10px; border: solid 1px #cccccc;">
+                <img class="my-3" src="media/profilePics/{{seller.person.last_name}}" style="width: 150px; height:150px; border-radius: 100%;" alt="">
+                <h4 class="my-3">{{seller.person.first_name}}</h4>
+                <h6 class="my-3">{{seller.person.username}}</h6>
+
+              </div>
+
+          </div>
+          {% endfor %}
+      </div>
+      
+
+
+      
+      {% if filter_type or filter_place or filter_date %}
+      <a href="excursions">
+          <button class="btn btn-secondary px-4 my-3" style="height: 60px;">Remove all filters</button>
+      </a>
+      {% endif %}
+
+
+
+    </div>
+  </section>
+
+
+
+  <!-- end member -->
+
+
+
+  <!-- footer start -->
+  {% include 'inc/footer.inc.html' %} 
+
+  <!-- footer end  -->
+
+  {% include 'inc/bottomLinks.inc.html' %} 
+
+</body>
+
+</html>
+
+
+<script>
+  if ("{{filter_type}}" != "") {
+      $('#typeFilter option[value="{{filter_type}}"]').prop('selected', true);
+      $("#typeFilter").css("border", "solid 2px #5f5fcf");
+  }
+
+  if ("{{filter_place}}" != "") {
+      $('#placeFilter option[value="{{filter_place}}"]').prop('selected', true);
+      $("#placeFilter").css("border", "solid 2px #5f5fcf");
+  }
+
+  if ("{{filter_date}}" != "") {
+      $('#dateFilter').val("{{filter_date}}");
+    
+      $("#dateFilter").css("border", "solid 2px #5f5fcf");
+  }
+
+
+
+
+</script>

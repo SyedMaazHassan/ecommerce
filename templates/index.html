@@ -1,0 +1,336 @@
+{% load static %}
+
+
+
+{% include 'inc/head.inc.html' %}
+
+<body>
+
+  <!-- navbar start -->
+  {% include 'inc/navBar.inc.html' %}
+  <!-- navbar end -->
+
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex justify-content-center align-items-center">
+    <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
+      <h1>Book items, gadgets, <br> and cloths from anywhere</h1>
+      <br>
+      <h2>We’re here for you, and we’re committed to helping you feel <br> confident as you get back out there. We’re making it easier <br> for you to find experiences with increased safety measures, <br> and have flexible cancellation policies to give you peace of<br>  mind while you discover amazing things to do.</h2>
+      <br>
+      <a href="excursions" class="btn-get-started">Find best plan Now</a>
+    </div>
+  </section>
+
+
+      <!-- ======= Popular events Section ======= -->
+      <section id="popular-courses" class="courses">
+        <div class="container" data-aos="fade-up">
+    
+          <div class="section-title">
+            <p>Recommended</p>
+          </div>
+
+          {% include 'inc/full_page_products.html' %}
+    
+
+    
+        </div>
+      </section>
+      <!-- End Popular Courses Section -->
+  <!-- End Hero -->
+  
+  <div class="container" style="text-align: center;">
+
+    <a href="all_products"><button class="btn btn-grey-out" type="button" style="width: 160px;">See All products</button></a>
+    <a href="all_sellers"><button class="btn btn-grey-out" type="button" style="width: 160px;">See All Sellers</button></a>
+
+  </div>
+
+  <main id="main">
+
+      <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+          <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
+            <img src="{% static 'img/diamante.jpg' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
+            <!-- <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3> -->
+          
+            We provide a wide variety of exciting and enriching shore excursions - 4,000 excursions in over 300 ports worldwide.
+            <br>
+            <br>
+            <ul>
+              <li><i class="icofont-check-circled"></i> 345,000+ Things to Do</li>
+              <li><i class="icofont-check-circled"></i> Millions of Reviews</li>
+              <li><i class="icofont-check-circled"></i> Lowest Price Guarantee</li>
+              <li><i class="icofont-check-circled"></i> 24/7 Global Support</li>
+              <li><i class="icofont-check-circled"></i> A Tripadvisor Company</li>
+
+            </ul>
+            <p>
+              We encourage you to browse through the wide variety of excursions or call us for personal advice.
+            </p>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+      <!-- End About Section -->
+
+    <!-- ======= Counts Section ======= -->
+    <section id="counts" class="counts section-bg">
+      <div class="container">
+
+        <div class="row counters">
+
+          <div class="col-lg-4 col-4 text-center">
+            <span data-toggle="counter-up">1445</span>
+            <p>Total sellers</p>
+          </div>
+
+          <div class="col-lg-4 col-4 text-center">
+            <span data-toggle="counter-up">5646</span>
+            <p>Total products</p>
+          </div>
+
+     
+
+          <div class="col-lg-4 col-4 text-center">
+            <span data-toggle="counter-up">54555</span>
+            <p>Monthly customers</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+    <!-- End Counts Section -->
+
+    <!-- ======= Why Us Section ======= -->
+    <section id="why-us" class="why-us">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+          <div class="col-lg-4 d-flex align-items-stretch">
+            <div class="content">
+              <h3>Why we are?</h3>
+              <p>
+                While other companies sell cruises and other forms of shopping, we focus exclusively on best online experience. We utilize this expertise to select the highest quality sellers and prodcuts in the most cost effective manner for our customers.              </p>
+              <div class="text-center">
+                <a href="excursions" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon-boxes d-flex flex-column justify-content-center">
+              <h2>Shopping in just 3 Steps</h2>
+              <br>
+              <div class="row">
+                <div class="col-xl-4 d-flex align-items-stretch">
+                  <div class="icon-box mt-4 mt-xl-0">
+                    <i class="bx bx-receipt"></i>
+                    <h4>Find or search</h4>
+                    <p>Survey our website to see the best prodcuts that suits your requirements.</p>
+                  </div>
+                </div>
+                <div class="col-xl-4 d-flex align-items-stretch">
+                  <div class="icon-box mt-4 mt-xl-0">
+                    <i class="bx bx-images"></i>
+                    <h4>Select products</h4>
+                    <p>Select any product by clicking on "Add to cart" button and complete all steps</p>
+                  </div>
+                </div>
+                <div class="col-xl-4 d-flex align-items-stretch">
+                  <div class="icon-box mt-4 mt-xl-0">
+                    <i class="bx bx-cube-alt"></i>
+                    <h4>Confirm order</h4>
+                    <p>Confirm the whole order and complete the whole process, and enjoy</p>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End .content-->
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <!-- End Why Us Section -->
+
+    <!-- ======= Features Section ======= -->
+    <section id="features" class="features">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row" data-aos="zoom-in" data-aos-delay="100">
+          <div class="col-lg-3 col-md-4">
+            <div class="icon-box">
+              <i class="ri-file-list-3-line" style="color: #11dbcf;"></i>
+              <h3>Trusty products</h3>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
+            <div class="icon-box">
+              <i class="ri-bar-chart-box-line" style="color: #5578ff;"></i>
+              <h3>Successfull history</h3>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
+            <div class="icon-box">
+              <i class="ri-calendar-todo-line" style="color: #e80368;"></i>
+              <h3>Best sellers</h3>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 mt-4 mt-lg-0">
+            <div class="icon-box">
+              <i class="ri-database-2-line" style="color: #47aeff;"></i>
+              <h3>Reasonable price</h3>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <!-- End Features Section -->
+
+
+
+
+    <!-- ======= Trainers Section ======= -->
+    
+
+    <!-- <section id="trainers" class="trainers">
+      <div class="container" data-aos="fade-up">
+  
+        <div class="section-title"> -->
+          <!-- <h2>Trainers</h2> -->
+          <!-- <p>Members</p>
+        </div> -->
+<!--   
+        <div class="row" data-aos="zoom-in" data-aos-delay="100" id="update_div">
+          {% if not members %}
+            <h1>No member registered</h1>
+          {% else %}
+            {% for member in members %}
+              {% if member.id != user.id %}
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                  <div class="member" style="width: 100%;">
+                    <br>
+                    <br>
+                    <img src="media/profilePics/{{ member.image }}" class="img-fluid all-member-img" alt="">
+                    <div class="member-content">
+                      <a href="member-{{member.id}}"><h3 class="profile-link">{{member.name}}</h3></a>
+                      <h5>{{member.email}}</h5>
+                      <hr class="mx-3">
+                      <div class="row p-0">
+                        <div class="col-sm-7">
+                          {% if user.is_authenticated %}
+                            {% if user.id in member.all_friends %}
+                            <button class="btn event-btns" type="button" style="background-color: grey;"><i class="material-icons float-left">done_all</i> &nbsp; friend</button>
+                            {% elif member.is_already_sent %}
+                            <button class="btn event-btns" type="button" style="background-color: grey;"><i class="material-icons float-left">done</i> &nbsp; Request sent</button>
+                            {% else %}
+                            <button class="btn event-btns" type="button" onclick="send_friend_request({{user.id}}, {{member.id}})"><i class="material-icons float-left">person_add</i> &nbsp; Add friend</button>
+                            {% endif %}
+                          {% else %}
+                            <a href="member-{{member.id}}">
+                              <button class="btn event-btns" type="button"><i class="material-icons float-left">person</i> &nbsp; See profile</button>
+                            </a>
+                          {% endif %}
+                        </div>
+                
+                        <div class="col-sm-5 pt-2">
+                          <div class="trainer-rank d-flex align-items-center">
+                            <i class="bx bx-user text-success"></i>&nbsp;{{member.friends}}
+                            &nbsp;&nbsp;
+                            <i class="bx bx-like text-success"></i>&nbsp;{{member.likes}}
+                          </div>
+                        </div>
+                      </div>
+                      
+                
+                  
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+  
+        </div> -->
+  
+      <!-- </div>
+    </section> -->
+
+  
+
+    <!-- End Trainers Section -->
+
+    <!-- <div class="container" style="text-align: center;">
+      <a href=" members "><button class="btn btn-grey-out" type="button">See All Members</button></a>
+    </div> -->
+    <br>
+    <br>
+    <br>
+  </main><!-- End #main -->
+
+  <!-- footer start -->
+  {% include 'inc/footer.inc.html' %}
+
+  <!-- footer end  -->
+
+  {% include 'inc/bottomLinks.inc.html' %}
+
+</body>
+
+<script>
+  function send_friend_request(sender_id, receiver_id){
+    console.log(sender_id);
+    console.log(receiver_id);
+    $.ajax({
+      url: 'send_request',
+      type: 'GET',
+      data: 'request_sender='+sender_id.toString()+'&request_receiver='+receiver_id.toString(),
+      success: function(){
+        $("#update_div").load(location.href+" #update_div>*","");
+      }
+    });
+  }
+
+  var slider_imgs = [
+        "pic_1.jpg",
+        "pic_2.jpg",
+        "pic_3.jpg",
+        "pic_4.jpg",
+        "pic_5.jpg",
+        "pic_6.jpg",
+  ]
+
+  $("#hero").css("background-image", "url(static/img/pic_1.jpg)");
+
+
+
+  function getRandomArbitrary(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  setInterval(function(){
+    let rn = getRandomArbitrary(0, 6);
+    console.log(rn);
+    let element = slider_imgs[rn]
+    console.log(element);
+    $("#hero").css({
+      "background-image": `url(static/img/${element})`,
+      "transition-duration": '1s'
+    })
+
+  }, 4000);
+  
+
+
+</script>
+
+</html>

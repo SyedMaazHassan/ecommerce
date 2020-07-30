@@ -1,0 +1,112 @@
+{% load static %}
+
+{% include 'inc/head.inc.html' %}
+
+<body style="background-color: #ffffff;">
+
+      <!-- navbar start -->
+      {% include 'inc/navBar.inc.html' %}
+      <!-- navbar end -->
+
+
+      <br>
+      <br>
+      <br>
+
+
+    <div class="row" style="width: 100%;">
+        <div class="col-12 d-flex justify-content-center align-items-center" style="min-height: 100vh">
+            <div class="my-form" id="mainDiv">
+                <form autocomplete="off" style="text-align:center;" action="signup" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <!-- <i class="material-icons pro">account_circle</i> -->
+                    <!-- <img src="{% static 'img/logo.png " class="my-3" style="text-align: center; width:200px;" alt=""> -->
+                    <div class="p-0" style="width:50%; margin:auto; text-align:center">
+                        <div>
+                            <img id="blah" onclick="upload_img();" style="width:164px; height:164px; margin:auto; cursor:pointer; border-radius: 100%;" src="{% static 'img/profile_icon.png' %}" alt="Card image">
+                        </div>
+                    
+                        <div style="height:0px; overflow:hidden">
+                            <input type="file" id="pic" onchange="readURL(this);" name="image" required>
+
+                        </div>
+
+                        <!-- <button type="button" class="form-control btn btn-outline-secondary" onclick="upload_img();">Choose profile img</button> -->
+
+                    </div>
+                    <input class="field form-control" id="name" name="name" type="text" value="{{name}}" placeholder="Full name" required>
+                    <input class="field form-control" id="email" name="email" type="email" value="{{email}}" placeholder="Email" required>
+                    <input class="field form-control" id="pass1" name="pass1" type="password" value="{{pass1}}" placeholder="Password" required>
+                    <input class="field form-control" id="pass2" name="pass2" type="password" value="{{pass2}}" placeholder="Confirm Password" required>
+                    <input class="field form-control" id="dob" name="dob" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Date of Birth" required>                    
+                    <p id="error" 
+                        style="
+                            text-align: left; 
+                            transition-duration:0.25s;
+                            color:#ed4337;"
+                        >
+                        {% for message in messages %}
+                            {{message}}
+                        {% endfor %}
+                    </p>
+                    <button class="btn pri-btn form-btn" type="submit">SIGNUP</button>        
+                    <p class="my-4">Already registered?</p>
+                    <a href="login"><button class="btn pri-btn form-btn signup-btn" type="button">LOGIN</button></a>
+                    <br>        
+                </form>
+            </div>
+        </div>
+    </div>    
+</body>
+
+<script>
+    var x = "{{border}}";
+    if(x=="email"){
+        $("#email").css(
+            'border-color', '#ed4337'
+        );
+    }else if(x=="password"){
+        $("#pass1, #pass2").css(
+            'border-color', '#ed4337'
+        );
+    }else if(x=="phone"){
+        $("#username").css(
+            'border-color', '#ed4337'
+        );
+    };
+
+    function upload_img() {
+        $("#pic").click();
+    }
+
+    function readURL(input) {
+        nameFile = input.files[0].name.split(".");
+        nameFile = nameFile[nameFile.length-1];
+        console.log(nameFile);
+        if(nameFile=="jpg" || nameFile=="jpeg" || nameFile=="png"){
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+    
+                reader.onload = function (e) {
+                    $('#blah')
+                        .attr('src', e.target.result)
+                        .width(164)
+                        .height(164);
+                };
+    
+                reader.readAsDataURL(input.files[0]);
+            }
+        }else{
+            $("#mainDiv").load(location.href + " #mainDiv>*", "");
+            alert("Invalid file type!");
+        }
+        
+    }
+
+
+
+
+
+</script>
+
+</html>

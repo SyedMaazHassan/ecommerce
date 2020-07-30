@@ -1,0 +1,661 @@
+{% load static %}
+
+{% include 'inc/head.inc.html' %} 
+
+<body>
+
+  <!-- navbar start -->
+  {% include 'inc/navBar.inc.html' %} 
+  <!-- navbar end -->
+
+
+<!-- member section -->
+  <br>
+  <br>
+  <br>
+
+
+  
+
+<div class="modal fade" id="booking_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Booking form</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+
+      <form action="" method="POST" id="booking_modal_form">
+
+        {% csrf_token %}
+      
+        <div class="modal-body">
+            <div class="row m-1 p-2" style="border: solid 1px #cccccc; border-radius: 7px;">
+              <div class="col-sm-12">
+                <h4 class="my-3"><b>Event name:</b></h4>
+                <h5 class="">{{event.excursions_name}}</h5>
+              </div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-sm-6 d-flex mb-3">
+                <i class="material-icons datetimeIcon">today</i>
+                <p class="mx-2" id="depDate_set" style="font-size: 15px;"></p>
+              </div>
+
+              <div class="col-sm-6 d-flex mb-3">
+                <i class="material-icons datetimeIcon">access_time</i>
+                <p class="mx-2" id="depTime_set" style="font-size: 15px;"></p>
+              </div>
+
+              <div class="col-sm-6 d-flex mb-3">
+                <i class="material-icons datetimeIcon">location_on</i>
+                <p class="mx-2" id="depPoint_set" style="font-size: 15px;"></p>
+              </div>
+
+              <div class="col-sm-6 d-flex mb-3">
+                <i class="material-icons datetimeIcon">done</i>
+                <p class="mx-2" id="depAmount_set" style="font-size: 15px;">&euro; {{event.amount_per_person}} (per person)</p>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <select class="form-control" name="number_of_people" id="depPeople_set" onchange="calculate_price()" required>
+                    <option value="">Select number of persons</option>
+                    
+                  </select>
+                </div>
+                <input type="hidden" name="available_row_id" id="depAvailableId_set">
+                <input type="hidden" name="total_amount" id="depTamount_set" value="0">
+                {% if user.is_authenticated %}
+                  <input type="hidden" name="total_user_credit" value="{{USER.total_credit}}">
+                {% endif %}
+        
+              </div>
+            </div>
+
+            <h5 class="my-3">Total bill: &euro; <b><span id="depTotal_set">0.0</span></b></h5>
+          
+
+        </div>
+
+     
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-block event-btns">Book now</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+  
+
+  <section id="events" class="events">
+    <div class="container" data-aos="fade-up">
+
+      <div class="row">
+        <div class="col-md-8 align-items-stretch py-3">
+         
+            
+            {% for message in messages %}
+
+              <div class="alert alert-warning" role="alert">
+   
+                {{message}}
+
+              </div>
+
+            {% endfor %}
+
+         
+          <div class="card" style="height:fit-content">
+            <div class="card-img">
+              <img src="media/{{product.product_primary_image}}" style="width: 100%; border-radius:10px" alt="...">
+            </div>
+            <div class="card-body" style="border-radius: 10px;">
+              <div style="display: inline;">
+                <div class="row">
+                  <div class="col-sm-9 text-left">
+                    <h3 class="card-title" style="color: #5f5fcf;">{{product.product_name}}</h3>
+
+                  </div>
+                  <div class="col-sm-3">
+                    <h4 class="card-title">$ {{product.product_price}}</h4>
+
+                  </div>
+                </div>
+              </div>
+        
+              <hr>
+              <!-- <p class="font-italic" style="text-align: left;"><b>Started on:</b> {{event.starting_date}}</p> -->
+              <h6 class="card-text"><b>{{product.product_tag_line}}</b></h6>
+              <hr>
+              <p class="card-text">{{product.product_description}}</p>
+
+              <br>
+              <div style="display: inline-block; width: 100%;" class="d-flex align-items-center">
+                <img src="media/profilePics/{{product.seller.last_name}}" class="m-1 float-left" style="width: 50px; height:50px; border-radius:100%" alt="">  
+                <div>
+                  <h5 class="mx-2" style="color: #5f5fcf;"><b>Seller</b></h5>
+                  <h5 class="mx-2">{{product.seller.first_name}}</h5>
+
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+
+          
+        </div>
+        
+        <div class="col-xl-4 col-md-4 col-sm-12 px-2">
+          
+          {% if product.product_secondary_image_1 or product.product_secondary_image_2 or product.product_secondary_image_3 %}
+    
+          <!-- <h3 class="mb-3">Excursion details</h3> -->
+          <div class="">
+          
+            <!-- <div class="my-2" style="text-align: center;">
+              <i class="material-icons datetimeIcon" style="font-size: 40px;">verified</i> 
+              <h4 class="my-2">Completed</h4>
+
+            </div> -->
+            <img src="media/{{product.product_secondary_image_1}}" class="sec_img" alt="">
+            <img src="media/{{product.product_secondary_image_2}}" class="sec_img" alt="">
+            <img src="media/{{product.product_secondary_image_3}}" class="sec_img" alt="">
+
+         
+            
+            
+         
+          </div>
+
+          {% endif %}
+
+          <div class="p-3 mt-4" style="border: solid 1px #cccccc; border-radius:10px">
+          
+            <div class="my-2" style="text-align: center;">
+              <i class="material-icons datetimeIcon" style="font-size: 40px;">shopping_cart</i> 
+              <h4 class="my-2">Add to cart</h4>
+
+            </div>
+            <hr>
+
+            {% if not credit_status and user.is_authenticated %}
+                <a href="profile">
+                  <button type="button" name="" id="" class="btn event-btns btn-block">Add credit card first</button>
+
+                </a>
+
+            {% else %}
+
+
+            <!-- collapse div -->
+
+            <div id="accordion">
+              {% if available_dates %}
+                {% for available in available_dates %}
+
+              
+
+                <div class="card my-3" style="width: 100%; padding: 0;">
+                  <div class="card-header dateHeaders" data-toggle="collapse" href="#trey_{{available.id}}">
+                    <a class="card-link">
+                      <i class="material-icons">touch_app</i> &nbsp; {{available.availability_date}}
+                    </a>
+                  </div>
+                  <div id="trey_{{available.id}}" class="collapse" data-parent="#accordion">
+                    <div class="card-body">
+
+                      <!-- departure info start -->
+
+                      <h5>Departure details</h5>
+                      <hr>
+                      <table class="table hhh">
+                        <tbody>
+                          
+                          
+                          <tr class="p-0">
+                            <td>
+                              <div class="trainer-rank d-flex align-items-center float-left my-2">
+                                <i class="material-icons datetimeIcon">today</i> &nbsp;&nbsp; <h6 class="my-2 font-weight-bold">Date</h6>
+                              </div>
+                            </td>
+                            <td><h6 class="mt-3" id="depDate_{{available.id}}">{{available.availability_date}}</h6></td>
+                          </tr>
+                          <tr class="p-0">
+                            <td>
+                              <div class="trainer-rank d-flex align-items-center float-left my-2">
+                                <i class="material-icons datetimeIcon">access_time</i> &nbsp;&nbsp; <h6 class="my-2 font-weight-bold">Time</h6>
+                              </div>
+                            </td>
+                            <td><h6 class="mt-3" id="depTime_{{available.id}}">{{available.departure_time}}</h6></td>
+                          </tr>
+                          <tr class="p-0">
+                            <td style="width: 40%;">
+                              <div class="trainer-rank d-flex align-items-center float-left my-2">
+                                <i class="material-icons datetimeIcon">location_on</i> &nbsp;&nbsp; <h6 class="my-2 font-weight-bold">Point</h6>
+                              </div>
+                            </td>
+                            <td><h6 class="mt-3" id="depPoint_{{available.id}}">{{available.departure_point}}</h6></td>
+                          </tr>
+                          
+                      
+                          
+                        </tbody>
+          
+                      </table>
+
+                      <!-- departure info end -->
+
+                      <!-- Return info start -->
+                      <hr>
+                      <h5>Return details</h5>
+                      <hr>
+                      <table class="table hhh">
+                        <tbody>
+                          
+                          
+                          <tr class="p-0">
+                            <td>
+                              <div class="trainer-rank d-flex align-items-center float-left my-2">
+                                <i class="material-icons datetimeIcon">today</i> &nbsp;&nbsp; <h6 class="my-2 font-weight-bold">Date</h6>
+                              </div>
+                            </td>
+                            <td><h6 class="mt-3">{{available.return_date}}</h6></td>
+                          </tr>
+                          <tr class="p-0">
+                            <td>
+                              <div class="trainer-rank d-flex align-items-center float-left my-2">
+                                <i class="material-icons datetimeIcon">access_time</i> &nbsp;&nbsp; <h6 class="my-2 font-weight-bold">Time</h6>
+                              </div>
+                            </td>
+                            <td><h6 class="mt-3">{{available.return_time}}</h6></td>
+                          </tr>
+                          <tr class="p-0">
+                            <td style="width: 40%;">
+                              <div class="trainer-rank d-flex align-items-center float-left my-2">
+                                <i class="material-icons datetimeIcon">location_on</i> &nbsp;&nbsp; <h6 class="my-2 font-weight-bold">Point</h6>
+                              </div>
+                            </td>
+                            <td><h6 class="mt-3">{{available.return_point}}</h6></td>
+                          </tr>
+                          
+                      
+                          
+                        </tbody>
+          
+                      </table>
+
+                      <!-- Return info end -->
+                        {% if user.is_authenticated %}
+                            {% if available.id in BOOKED_EX %}
+                              <button class="btn btn-block btn-secondary" type="button">Already booked</button>
+
+                            
+                            {% else %}
+                              <button class="btn btn-block event-btns" type="button" onclick="booking_form('{{available.id}}')">Book now</button>
+
+                            {% endif %}
+                        {% else %}
+                            <button class="btn btn-block event-btns" type="button" onclick="goToLogin()">Book now</button>
+                        {% endif %}
+                      
+                      
+                    </div>
+                  </div>
+                </div>
+
+           
+
+                {% endfor %}
+              {% else %}
+
+                
+                
+                <!-- <h5 class="my-4 text-center">Oops! Not available right now</h5> -->
+                {% if not added %}
+
+                <form action="" method="POST" id="add_product_form">
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <input type="hidden" name="product_id" value="{{product.id}}">
+                      <input type="number" class="form-control" min="1" max="100" id="qty" name="qty" placeholder="Quantity" required>
+                    </div>
+                    <div class="col-sm-6">
+                      <button type="submit" class="btn event-btns btn-block">Add</button>
+                    </div>
+                  </div>
+                </form>
+                <br>
+                <div class="row">
+                  <div class="col-sm-6 d-flex">
+                    <h5>Amount:&nbsp;&nbsp;$&nbsp;</h5>
+                    <h5 id="updation_price" class="">0.00</h5>
+                  </div>
+                </div>
+
+                {% else %}
+
+                <h4 style="color: #5f5fcf;">Already Added in cart</h4>
+                <h6 class="my-3">You can change Quantity from</h6>
+                <a href="profile?section=cart">All cart items</a>
+
+                {% endif %}
+
+
+              {% endif %}
+
+      
+
+
+
+              {% endif %}
+
+              
+              
+            </div>
+
+
+            <!-- collapse for dates end -->
+         
+           
+            
+        
+         
+          </div>
+
+        </div>
+
+      </div>
+
+      <br>
+      <div class="row">
+        <div class="col-md-8">
+          
+          <!-- review section -->
+          <div>
+
+         
+
+            <h1>Reviews 
+              {% if user.is_authenticated %}
+                <i class="material-icons add_review_icon" title="Add your own review" data-toggle="collapse" data-target="#reviewForm">add</i>
+              {% else %}
+                <i class="material-icons add_review_icon" title="Add your own review" onclick="ask_to_online()">add</i>
+
+              
+              {% endif %}
+            </h1>
+
+            
+            <div class="collapse" id="reviewForm">
+              <form action="add_review" method="post" class="my-3">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                  <textarea class="form-control" name="myReview" placeholder="Write your review here!" rows="3" required></textarea>
+                </div>
+                <input type="hidden" name="productID" value="{{product.id}}">
+                <div class="row">
+                  <div class="col-sm-4 py-2">
+                    <div class="form-group">
+                      <select class="form-control" name="ratings" required>
+                        <option value="">Select experience</option>
+                        <option value="5">Amazing experience</option>
+                        <option value="4">Better experience</option>
+                        <option value="3">Good experience</option>
+                        <option value="2">Bad experience</option>
+                        <option value="1">Worst experience</option>
+    
+                      </select>
+                    </div>
+                  </div>
+    
+                  <div class="col-sm-4 py-2">
+                    <button class="btn event-btns px-4" type="submit">Post</button>
+    
+                  </div>
+                </div>
+    
+              </form>
+
+            </div>
+            <br>
+            {% if reviews %}
+                {% for review in reviews %}
+
+                <div class="profile p-3 mb-3">
+                  <div class="row text-left">
+                    <div class="col-sm-12 d-flex">
+                      <img src="media/profilePics/{{review.author.last_name}}" alt="" style="width: 55px; height: 55px; border: solid 1px grey; border-radius: 100%;">
+                      <div class="mx-3">
+                        <h4>{{review.author.first_name}} <span class="ratingNumber" style="opacity: 0;">{{review.review_star}}</span></h4>
+                        <div style="display: inline;" class="ratingParent" >
+                          <i class="material-icons text-lightgrey" style="margin-right: -7px;">star</i>
+                          <i class="material-icons text-lightgrey" style="margin-right: -7px;">star</i>
+                          <i class="material-icons text-lightgrey" style="margin-right: -7px;">star</i>
+                          <i class="material-icons text-lightgrey" style="margin-right: -7px;">star</i>
+                          <i class="material-icons text-lightgrey" style="margin-right: -7px;">star</i>
+    
+                        </div>
+                        
+                      </div>
+                    </div>
+    
+                    <div class="col-sm-12 pt-2">
+                        {{review.review_msg}}
+
+                        <p class="p-0 m-0 pt-2" style="font-size: 15px; color: #5f5fcf;">{{review.date}}</p>
+                    </div>
+
+                  
+                  </div>
+    
+                </div>
+
+
+
+                {% endfor %}
+              
+
+            {% else %}
+              
+              <h3 class="text-secondary">No reviews yet!</h3>
+            {% endif %}
+         
+         
+          </div>
+        
+          <!-- review section ends -->
+        </div>
+      </div>
+
+     
+
+      
+
+    </div>
+  </section>
+
+
+
+  <!-- end member -->
+
+
+
+  <!-- footer start -->
+  {% include 'inc/footer.inc.html' %}
+
+  <!-- footer end  -->
+
+  {% include 'inc/bottomLinks.inc.html' %} 
+
+</body>
+
+<script>
+
+  $("#add_product_form").submit(()=>{
+      var isLoggedIn = "{{user.is_authenticated}}";
+      if(isLoggedIn!="True"){
+        if (confirm("Please! login to add this product in your cart")) {
+            goToLogin();
+        }
+        return false;
+
+      }
+
+  });
+
+  $("#qty").on('change', ()=>{
+     var qty = parseInt($("#qty").val());
+     var price = parseFloat("{{product.product_price}}");
+    
+     var amount = qty*price
+     amount = amount.toFixed(2);
+     $("#updation_price").text(`${amount}`);
+    //  updation_price
+  });
+
+  
+  function calculate_price() {
+      var select_option = $("#depPeople_set").val();
+
+      if (select_option=="") {
+          console.log("you select nothing")
+          $("#depTotal_set").text("0.0");
+
+      }else{
+          select_option = parseInt(select_option);
+          let amount_per_person = parseFloat('{{event.amount_per_person}}');
+          let total_amount = amount_per_person * select_option
+          $("#depTotal_set").text(total_amount.toFixed(1).toString());
+          $("#depTamount_set").val(total_amount);
+
+      }
+    
+  }
+
+
+
+  function goToLogin() {  
+
+      let x = window.location.href.split("/");
+
+      let redirect_url_end = x.pop();
+      let redirect_url_start = x.pop();
+
+      let redirect_url = redirect_url_start+"/"+redirect_url_end;
+    
+      window.location.href = `login?next=${redirect_url}`;
+  }
+
+  function ask_to_online(){
+      if (confirm("Kindly login to post your precious review!")) {
+        goToLogin()
+      }
+  }
+
+
+
+  function booking_form(available_row_id) {
+      console.log(available_row_id);
+
+      let xx = window.location.href.split("/");
+
+      let redirect_url_end = xx.pop();
+      let redirect_url_start = xx.pop();
+
+      let redirect_url = redirect_url_start+"/"+redirect_url_end;
+
+
+      let x = '{{USER.credit_status}}';
+      if (x=='False') {
+
+        if (confirm("Please! add credit details to book this event")) {
+          window.location.href = `profile?next=${redirect_url}`;
+        }
+
+      }else{
+
+        
+        $("#depDate_set").text($("#depDate_"+available_row_id).text());
+        $("#depTime_set").text($("#depTime_"+available_row_id).text());
+        $("#depPoint_set").text($("#depPoint_"+available_row_id).text());
+        $("#depAvailableId_set").val(available_row_id);
+        $("#booking_modal").modal("show");
+
+
+
+
+        
+      }
+    
+  }
+
+  $(document).ready(function(){
+    let all_stars_number = $(".ratingNumber");
+    let parent_ratings = $(".ratingParent");
+
+    
+    for(let i=0; i < all_stars_number.length; i++){
+        let rating_number = parseInt(all_stars_number[i].innerText);
+
+        let current_parent = parent_ratings[i];
+
+        let all_children = current_parent.children
+
+        for (let j = 0; j < rating_number; j++) {
+          const single_star = all_children[j];
+
+          single_star.classList.remove("text-lightgrey");
+          single_star.classList.add("text-warning");
+          
+        }
+
+        
+
+    
+        // console.log(current_parent);
+        
+        // for(let i=0; i<parseInt(myID); i++){
+        //     all_stars[i].classList.add("checked");
+        // }
+    }
+  });
+
+  var min_people = parseInt('{{event.excursions_minimum_people}}');
+  var max_people = parseInt('{{event.excursions_maximum_people}}');
+
+  for (let i = min_people; i <= max_people; i++) {
+    $("#depPeople_set").append(`<option value="${i}">${i} people</option>`)
+
+    
+  }
+
+
+
+  // console.log("min people")
+  // console.log(min_people)
+  // console.log("max_people")
+  // console.log(max_people)
+
+
+</script>
+
+</html>

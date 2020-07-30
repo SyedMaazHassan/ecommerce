@@ -1,0 +1,185 @@
+{% load static %}
+
+<!-- ======= Header ======= -->
+
+<div class="modal fade" id="donate">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Donate Now</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+      
+      <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-6 pb-3">
+              <h6 class="text-success">Your Name</h6>
+              <input class="field form-control my-2" style="width: 100%;" id="name" name="name" type="text" placeholder="Your surname" value="{{USER.name}}" readonly>
+            </div>
+            <div class="col-sm-6 pb-3">
+              <h6 class="text-success">Your Surname</h6>
+              <input class="field form-control my-2" style="width: 100%;" id="surname" name="surname" type="text" placeholder="Your surname" value="{{CREDIT.owner_surname}}" readonly>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 pb-3">
+              <h6 class="text-success">Card Number</h6>
+              <input class="field form-control my-2" style="width: 100%;" id="card_num" name="card_num" type="text" pattern="[0-9]+" title="User numbers only" minlength="13" maxlength="13" value="{{CREDIT.card_number}}" placeholder="Card number" readonly>
+            </div>
+            <div class="col-sm-6 pb-3">
+              <h6 class="text-success">Available Amount</h6>
+              <input class="field form-control my-2" style="width: 100%;" id="available_amount" type="number" value="{{CREDIT.total_credit}}" readonly>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <h6 class="text-success">EXP Date</h6>
+              <input class="field form-control my-2" style="width: 100%;" id="exp_date" name="exp_date" type="date" placeholder="EXP date" value="{{CREDIT.exp_date}}" readonly>
+            </div>
+            <div class="col-sm-6">
+              <h6 class="text-success">CVV Number</h6>
+              <input class="field form-control my-2" style="width: 100%;" id="cvv_num" name="cvv_num" type="text" pattern="[0-9]+"  minlength="3" maxlength="3" placeholder="CVV number" value="{{CREDIT.cvv_num}}" readonly>
+            </div>
+           
+          </div>
+
+         
+            <form method="POST" id="donate_form" action="event/{{event.id}}">
+              {% csrf_token %}
+              <input type="hidden" name="event_id" value="{{event.id}}">
+              <input type="hidden" name="donor_id" value="{{USER.id}}">
+              <input type="hidden" name="credit_card_id" value="{{CREDIT.id}}">
+              <input class="field form-control my-3" style="width: 100%;" id="donate_amount" min="1" name="donate_amount" type="number" placeholder="Enter amount to donate" required>
+              <input class="field form-control my-3" style="width: 100%;" name="password" type="password" placeholder="Type your password to confirm" required>
+              <button type="" class="btn btn-block event-btns my-3" id="test">NEXT</button>
+            </form>
+
+            <script>
+      
+              $("#donate_form").submit(function(){
+                  var donate_amount = parseInt($("#donate_amount").val());
+                  var available_amount = parseInt($("#available_amount").val());
+          
+                  if(donate_amount<=available_amount){
+                    console.log(donate_amount)
+                    console.log(available_amount)
+                    return true;
+                    
+                  }else{
+                    console.log(donate_amount)
+                    console.log(available_amount)
+                    window.alert("Entered amount is greater the available amount in your credit!");
+                    return false;
+                  }
+              });
+
+            </script>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo mr-auto">
+        <!-- <a href="{% url 'index' %}">
+          <img src="{% static 'img/main_logo.png' %}" alt="" style="width: 120px;">
+        </a> -->
+      
+          <span style="color:#5f5fcf">O</span><span style="font-size: 25px;">nline</span><span style="color:#5f5fcf">S</span><span style="font-size: 25px;">hopping</span>
+
+
+      </h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="{% static 'index.html" class="logo mr-auto"><img src="{% static 'img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul class="pr-4 border-right">
+          
+            
+          <li>
+            <a href="all_sellers" class="get-started-btn m-1 text-white" style="width:100%; text-align:center">All sellers</a>
+          </li>
+
+          <li>
+            <a href="all_products" class="get-started-btn m-1 text-white" style="width:100%; text-align:center">All products</a>
+          </li>
+          
+          {% if user.is_authenticated %}
+
+          <!-- <li>
+            <a href="excursions" class="get-started-btn m-1 text-white" style="width:100%; text-align:center">Excursions</a>
+          </li> -->
+
+          <li>
+            <a href="logout" class="get-started-btn m-1 text-white" style="width:100%; text-align:center">Logout</a>
+          </li>
+
+         
+          
+          <!-- <a href="#" class="notification">
+            <i class="material-icons notification-icon">notifications</i>
+            <span class="badge notification-badge">3</span>
+          </a> -->
+          
+    
+          {% else %}
+          <li>
+            <a href=" login " class="get-started-btn m-1 text-white" style="width:100%; text-align:center">Log in</a>
+          </li>
+
+          <li>
+            <a href=" signup " class="get-started-btn m-1 text-white" style="width:100%; text-align:center">Signup</a>
+          </li>
+          {% endif %}
+    
+          <!-- <li><a href="{% static 'events.html">Events</a></li>
+          <li><a href="{% static 'pricing.html">Pricing</a></li>
+          <li class="drop-down"><a href="{% static '">Drop Down</a>
+            <ul>
+              <li><a href="{% static '#">Drop Down 1</a></li>
+              <li class="drop-down"><a href="{% static '#">Deep Drop Down</a>
+                <ul>
+                  <li><a href="{% static '#">Deep Drop Down 1</a></li>
+                  <li><a href="{% static '#">Deep Drop Down 2</a></li>
+                  <li><a href="{% static '#">Deep Drop Down 3</a></li>
+                  <li><a href="{% static '#">Deep Drop Down 4</a></li>
+                  <li><a href="{% static '#">Deep Drop Down 5</a></li>
+                </ul>
+              </li>
+              <li><a href="{% static '#">Drop Down 2</a></li>
+              <li><a href="{% static '#">Drop Down 3</a></li>
+              <li><a href="{% static '#">Drop Down 4</a></li>
+            </ul>
+          </li> -->
+          <!-- <li><a href="{% static 'contact.html">Contact</a></li> -->
+
+        </ul>
+        
+      </nav><!-- .nav-menu -->
+      {% if user.is_authenticated %}
+      <div class="ml-1 abc">
+        <a class="notification float-left mt-1" href="profile?section=cart">
+          <i class="material-icons notification-icon">shopping_cart</i>
+          {% if cart_items != 0 %}
+          <span class="badge">
+              {{cart_items}}
+          </span>
+          {% endif %}
+        </a>
+        <a href="profile?section=placed_orders">
+          <img src="media/profilePics/{{ user.last_name }}" class="m-1" style="width: 38px; height:38px; border-radius:100%" alt="">  
+        </a>
+      </div>
+      {% endif %}
+    </div>
+  </header>
+  <!-- End Header -->

@@ -1,0 +1,42 @@
+{% load static %} 
+ 
+ <!-- ======= Trainers Section ======= -->
+ <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+  <div class="member" style="width: 100%;">
+    <br>
+    <br>
+    <img src="media/profilePics/{{ member.image }}" class="img-fluid all-member-img" alt="">
+    <div class="member-content">
+      <a href="member-{{member.id}}"><h3 class="profile-link">{{member.name}}</h3></a>
+      <h5>{{member.email}}</h5>
+      <hr class="mx-3">
+      <div class="row p-0">
+        <div class="col-sm-7">
+          {% if user.is_authenticated %}
+            {% if user.id in member.all_friends %}
+            <button class="btn event-btns" type="button" style="background-color: grey;"><i class="material-icons float-left">done_all</i> &nbsp; friend</button>
+            {% elif member.is_already_sent %}
+            <button class="btn event-btns" type="button" style="background-color: grey;"><i class="material-icons float-left">done</i> &nbsp; Request sent</button>
+            {% else %}
+            <button class="btn event-btns" type="button" onclick="send_friend_request({{user.id}}, {{member.id}})"><i class="material-icons float-left">person_add</i> &nbsp; Add friend</button>
+            {% endif %}
+          {% else %}
+            <button class="btn event-btns" type="button"><i class="material-icons float-left">person</i> &nbsp; See profile</button>
+          {% endif %}
+        </div>
+
+        <div class="col-sm-5 pt-2">
+          <div class="trainer-rank d-flex align-items-center">
+            <i class="bx bx-user text-success"></i>&nbsp;{{member.friends}}
+            &nbsp;&nbsp;
+            <i class="bx bx-like text-success"></i>&nbsp;{{member.likes}}
+          </div>
+        </div>
+      </div>
+      
+
+  
+    </div>
+  </div>
+</div>
+  <!-- End Trainers Section -->

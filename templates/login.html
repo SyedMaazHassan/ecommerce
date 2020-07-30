@@ -1,0 +1,46 @@
+{% load static %}
+
+{% include 'inc/head.inc.html' %}
+
+<body style="background-color: #ffffff;">
+
+    <!-- navbar start -->
+    {% include 'inc/navBar.inc.html' %}
+    <!-- navbar end -->
+
+
+    <div class="row" style="width: 100%;">
+        <div class="col-12 d-flex justify-content-center align-items-center" style="min-height: 100vh">
+            <div class="my-form">
+                
+                <form autocomplete="off" style="text-align:center;" action="login" method="POST">
+                    {% csrf_token %}
+                    <!-- <i class="material-icons pro">account_circle</i> -->
+                    <h3 class="my-3 mb-5">Login here!</h3>
+                    <input class="field form-control" id="email" name="email" type="email" placeholder="Email" required>
+                    <input class="field form-control" id="passowrd" name="password" type="password" placeholder="Password" required>
+                    
+                    {% if request.GET.next %}
+                        <input type="hidden" name="next" value="{{request.GET.next}}">
+                    {% endif %}
+                    <p id="error" 
+                        style="
+                            text-align: left; 
+                            transition-duration:0.25s;
+                            color:#ed4337;"
+                        >
+                        {% for message in messages %}
+                            {{message}}
+                        {% endfor %}
+                    </p>
+                    <button class="btn pri-btn form-btn" type="submit">LOGIN</button>        
+                    <p class="my-4">Never registered before?</p>
+                    <a href=" signup "><button class="btn pri-btn form-btn signup-btn" type="button">SIGNUP</button></a>
+                </form>
+
+            </div>
+        </div>
+    </div>    
+</body>
+
+</html>

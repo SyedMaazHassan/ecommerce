@@ -1,0 +1,125 @@
+{% load static %}
+
+{% include 'inc/head.inc.html' %}
+
+<body>
+
+  <!-- navbar start -->
+  {% include 'inc/navBar.inc.html' %} 
+  <!-- navbar end -->
+
+
+<!-- member section -->
+  <br>
+  <br>
+  <br>
+
+
+  <section id="popular-courses" class="courses">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <p>All products</p>
+      </div>
+
+      <p><i>Filterize products from available type, university and city!</i></p>
+
+      <form action="" method="GET">
+
+
+        <div class="row">
+          <div class="col-xl-3">
+            <select name="university" id="uniFilter" class="custom-select mb-3 px-3" style="height: 60px;">
+              <option selected disabled>Select university</option>
+              {% for uni in all_unis %}
+                <option value="{{uni}}">{{uni}}</option>
+
+              {% endfor %}
+            </select>
+
+          </div>
+          <div class="col-xl-3">
+            <select name="city" id="cityFilter" class="custom-select mb-3 px-3" style="height: 60px;">
+              <option selected disabled>Select city</option>
+              {% for city in all_cities %}
+                <option value="{{city}}">{{city}}</option>
+
+              {% endfor %}
+            </select>
+
+          </div>
+          <!-- <div class="col-xl-3">
+            <select name="country" id="placeFilter" class="custom-select mb-3 px-3" style="height: 60px;">
+              <option selected disabled>Select Excursion place</option>
+              {% for place in available_places %}
+                <option value="{{place}}">{{place}}</option>
+
+              {% endfor %}
+            </select>
+
+          </div> -->
+          <div class="col-xl-3">
+            <button type="submit" class="btn btn-block applyFildersBtn">Apply filters</button>
+          </div>
+        </div>
+
+      </form>
+    
+      
+      <br>
+
+
+      {% include 'inc/full_page_products.html' %}
+
+
+      
+      {% if filter_uni or filter_city or filter_type %}
+      <a href="all_products">
+          <button class="btn btn-secondary px-4 my-3" style="height: 60px;">Remove all filters</button>
+      </a>
+      {% endif %}
+
+
+
+    </div>
+  </section>
+
+
+
+  <!-- end member -->
+
+
+
+  <!-- footer start -->
+  {% include 'inc/footer.inc.html' %} 
+
+  <!-- footer end  -->
+
+  {% include 'inc/bottomLinks.inc.html' %} 
+
+</body>
+
+</html>
+
+
+<script>
+  if ("{{filter_uni}}" != "") {
+      $('#uniFilter option[value="{{filter_uni}}"]').prop('selected', true);
+      $("#uniFilter").css("border", "solid 2px #5f5fcf");
+  }
+
+  if ("{{filter_city}}" != "") {
+      $('#cityFilter option[value="{{filter_city}}"]').prop('selected', true);
+      $("#cityFilter").css("border", "solid 2px #5f5fcf");
+  }
+
+  if ("{{filter_date}}" != "") {
+      $('#dateFilter').val("{{filter_date}}");
+    
+      $("#dateFilter").css("border", "solid 2px #5f5fcf");
+  }
+
+
+
+
+</script>
