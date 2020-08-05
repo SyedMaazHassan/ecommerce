@@ -156,6 +156,19 @@
               <input class="field form-control my-2" style="width: 100%;" name="product_price" type="number" min="1" placeholder="Product price" required>
             </div>
           </div>
+          <div class="row mt-2">
+            <div class="col-sm-12">
+               <div class="form-group">
+                 <select class="form-control" name="product_cat" required>
+                   <option value="">Select category</option>
+                   {% for cat in categories %}
+                   <option value="{{cat}}">{{cat}}</option>
+                   {% endfor %}
+                 
+                 </select>
+               </div>
+            </div>
+          </div>
           <div class="row">
             <div class="col-sm-12">
               <input class="field form-control my-2" style="width: 100%;" name="product_tagline" type="text"  placeholder="Product tagline" required>

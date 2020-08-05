@@ -93,24 +93,31 @@
         <!-- <a href="{% url 'index' %}">
           <img src="{% static 'img/main_logo.png' %}" alt="" style="width: 120px;">
         </a> -->
-      
+        <a href="{% url 'index' %}" style="text-decoration: none;">
           <span style="color:#5f5fcf">O</span><span style="font-size: 25px;">nline</span><span style="color:#5f5fcf">S</span><span style="font-size: 25px;">hopping</span>
-
-
+        </a>
       </h1>
+
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="{% static 'index.html" class="logo mr-auto"><img src="{% static 'img/logo.png" alt="" class="img-fluid"></a>-->
 
       <nav class="nav-menu d-none d-lg-block">
         <ul class="pr-4 border-right">
-          
+          <li class="d-flex align-items-center justify-content-center">
+            <form action="{% url 'all_products' %}" method="GET" id="search_form">
+              <input type="text" class="form-control mt-1 mx-1" name="search" value="{{request.GET.search}}" id="query" placeholder="Search product">
+
+            </form>
+            <i class="material-icons mt-1 p-2" onclick="search_now()" title="Search" style="cursor: pointer; border-radius: 5px; background-color: #5f5fcf; color: white;">search</i>
+          </li>
             
           <li>
             <a href="all_sellers" class="get-started-btn m-1 text-white" style="width:100%; text-align:center">All sellers</a>
           </li>
 
           <li>
-            <a href="all_products" class="get-started-btn m-1 text-white" style="width:100%; text-align:center">All products</a>
+          
+            <a href="all_products" class="get-started-btn m-1 text-white" style="width:100%; text-align:center" onclick="window.location.href='all_products'">All products</a>
           </li>
           
           {% if user.is_authenticated %}
@@ -182,4 +189,13 @@
       {% endif %}
     </div>
   </header>
+
+<script>
+  function search_now(){
+     if ($("#query").val()!="") {
+        $("#search_form").submit();
+     }
+  }
+</script>
+
   <!-- End Header -->

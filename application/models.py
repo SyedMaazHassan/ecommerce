@@ -40,6 +40,7 @@ class products(models.Model):
     product_secondary_image_3 = models.ImageField(upload_to='products', null=True, blank=True)
     product_name = models.CharField(max_length=100)
     product_tag_line = models.CharField(max_length=100)
+    product_type = models.CharField(max_length=100, default="Nothing")
     product_price = models.FloatField()
     product_description = models.TextField()
 
@@ -74,3 +75,11 @@ class order_products(models.Model):
     quantity = models.IntegerField()
     amount = models.FloatField()
     parent_order = models.ForeignKey(order, on_delete=models.CASCADE)
+
+
+class categories(models.Model):
+    category = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.category
+

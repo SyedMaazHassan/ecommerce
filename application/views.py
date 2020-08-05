@@ -32,7 +32,7 @@ def profile(request):
 
     context = {}
 
-
+    context['categories'] = categories.objects.all()
     context['cart_items'] = get_cart_items(request)
 
 
@@ -220,6 +220,7 @@ def all_products(request):
 
     context['all_cities'] = user_more_info.objects.all().values_list('city', flat=True)
     context['all_cities'] = list(dict.fromkeys(context['all_cities']))
+    context['categories'] = categories.objects.all()
 
     print(context['all_unis'])
 
@@ -231,7 +232,8 @@ def all_products(request):
     all_available_products = []
 
     all_SELLERS = user_more_info.objects.all()
-
+    
+ 
     if request.method == 'GET':
         if 'university' in request.GET:
             context['filter_uni'] = request.GET['university']
@@ -246,7 +248,53 @@ def all_products(request):
     for i in all_SELLERS:
         all_available_products += list(products.objects.filter(seller=i.person))
 
-    print(all_available_products)
+    # print(all_available_products)
+    # print(i, i.product_type)
+    if request.method == 'GET' and 'search' in request.GET:
+        em = []
+        query = request.GET['search']
+        for i in all_available_products:
+            if query in i.product_name or query in i.product_description:
+                em.append(i)
+
+        all_available_products = em
+
+    if request.method == 'GET' and 'category' in request.GET:
+        empty_temp = []
+        cat = request.GET['category']
+
+        for i in all_available_products:
+            if i.product_type == cat:
+                empty_temp.append(i)
+
+        all_available_products = empty_temp
+
+        context['cats'] = cat
+
+    if request.method == 'GET' and 'min_price' in request.GET:   
+        if request.GET['min_price'] != "":
+            context['min_price'] = int(request.GET['min_price'])
+            for i in range(0, len(all_available_products)):
+                if all_available_products[i].product_price < context['min_price']:
+                    all_available_products[i] = None
+
+    if request.method == 'GET' and 'max_price' in request.GET:
+        if request.GET['max_price'] != "":
+            context['max_price'] = int(request.GET['max_price'])
+            for i in range(0, len(all_available_products)):
+                if all_available_products[i] and all_available_products[i].product_price > context['max_price']:
+                    all_available_products[i] = None
+
+    emp = []
+    for i in all_available_products:
+        if i is not None:
+            emp.append(i)
+
+    all_available_products = emp
+
+
+    for i in all_available_products:
+        print(i.product_name, i.product_price)
 
     context['all_products'] = all_available_products
 
@@ -327,6 +375,7 @@ def addProduct(request):
         product_price = request.POST['product_price']
         product_tagline = request.POST['product_tagline']
         product_desc = request.POST['product_desc']
+        product_cat = request.POST['product_cat']
 
         new_product = products(            
             seller=request.user,
@@ -336,6 +385,7 @@ def addProduct(request):
             product_secondary_image_3=secondary_image3,
             product_name=product_name,
             product_tag_line=product_tagline,
+            product_type=product_cat,
             product_price=product_price,
             product_description=product_desc
         )

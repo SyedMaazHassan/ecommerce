@@ -18,19 +18,31 @@
   <section id="popular-courses" class="courses">
     <div class="container" data-aos="fade-up">
 
-      <div class="section-title">
-        <p>All products</p>
+      <div class="row">
+        <div class="col-sm-12 d-flex">
+          <div class="section-title">
+            <p>All products</p>
+            
+          </div>
+          {% if request.GET.search %}
+            <h5 class="m-3">(Seach results of "<span style="color: #5f5fcf;">{{request.GET.search}}</span>")</h5>
+          {% endif %}
+        </div>
       </div>
 
-      <p><i>Filterize products from available type, university and city!</i></p>
+      
 
-      <form action="" method="GET">
+      <p><i>Filterize products from available category, university, city and price range!</i></p>
 
+      <form action="" method="GET" id="form_filter">
+        {% if request.GET.search %}
+          <input type="hidden" name="search" value="{{request.GET.search}}">
+        {% endif %}
 
         <div class="row">
-          <div class="col-xl-3">
+          <div class="col-xl-2">
             <select name="university" id="uniFilter" class="custom-select mb-3 px-3" style="height: 60px;">
-              <option selected disabled>Select university</option>
+              <option selected disabled>University</option>
               {% for uni in all_unis %}
                 <option value="{{uni}}">{{uni}}</option>
 
@@ -38,9 +50,9 @@
             </select>
 
           </div>
-          <div class="col-xl-3">
+          <div class="col-xl-2">
             <select name="city" id="cityFilter" class="custom-select mb-3 px-3" style="height: 60px;">
-              <option selected disabled>Select city</option>
+              <option selected disabled>City</option>
               {% for city in all_cities %}
                 <option value="{{city}}">{{city}}</option>
 
@@ -48,17 +60,30 @@
             </select>
 
           </div>
-          <!-- <div class="col-xl-3">
-            <select name="country" id="placeFilter" class="custom-select mb-3 px-3" style="height: 60px;">
-              <option selected disabled>Select Excursion place</option>
-              {% for place in available_places %}
-                <option value="{{place}}">{{place}}</option>
+
+          <div class="col-xl-2">
+            <select name="category" id="catFilter" class="custom-select mb-3 px-3" style="height: 60px;">
+              <option selected disabled>Category</option>
+              {% for cat in categories %}
+                <option value="{{cat.category}}">{{cat.category}}</option>
 
               {% endfor %}
             </select>
 
-          </div> -->
-          <div class="col-xl-3">
+          </div>
+
+          <div class="col-xl-2">
+            <input type="number" name="min_price" id="min_price" class="form-control  mb-3 px-3" style="height: 60px;" min="1" placeholder="Min price">
+
+          </div>
+
+          <div class="col-xl-2">
+            <input type="number" name="max_price" id="max_price" class="form-control  mb-3 px-3" style="height: 60px;" min="100" placeholder="Max price">
+
+          </div>
+
+
+          <div class="col-xl-2">
             <button type="submit" class="btn btn-block applyFildersBtn">Apply filters</button>
           </div>
         </div>
@@ -73,7 +98,7 @@
 
 
       
-      {% if filter_uni or filter_city or filter_type %}
+      {% if filter_uni or filter_city or filter_type or cats or min_price or max_price %}
       <a href="all_products">
           <button class="btn btn-secondary px-4 my-3" style="height: 60px;">Remove all filters</button>
       </a>
@@ -114,10 +139,30 @@
   }
 
   if ("{{filter_date}}" != "") {
-      $('#dateFilter').val("{{filter_date}}");
-    
+      $('#dateFilter').val("{{filter_date}}"); 
       $("#dateFilter").css("border", "solid 2px #5f5fcf");
   }
+
+  if ("{{cats}}" != "") {
+      $('#catFilter').val("{{cats}}"); 
+      $("#catFilter").css("border", "solid 2px #5f5fcf");
+  }
+
+  if ("{{min_price}}") {
+      $('#min_price').val("{{min_price}}"); 
+      $("#min_price").css("border", "solid 2px #5f5fcf"); 
+  }
+
+  if ("{{max_price}}") {
+      $('#max_price').val("{{max_price}}"); 
+      $("#max_price").css("border", "solid 2px #5f5fcf"); 
+  }
+
+  $("#form_filter").on('submit', ()=>{
+    if ($("#min_price").val().length != 0 && $("#max_price").val().length != 0 && $("#min_price").val() == $("#max_price").val()) {
+        return false;
+    }
+  })
 
 
 

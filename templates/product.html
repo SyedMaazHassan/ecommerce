@@ -140,7 +140,15 @@
         
               <hr>
               <!-- <p class="font-italic" style="text-align: left;"><b>Started on:</b> {{event.starting_date}}</p> -->
-              <h6 class="card-text"><b>{{product.product_tag_line}}</b></h6>
+              <div class="row">
+                <div class="col-sm-10">
+                  <h6 class="card-text"><b>{{product.product_tag_line}}</b></h6>
+
+                </div>
+                <div class="col-sm-2">
+                  <p>{{product.product_type}}</p>
+                </div>
+              </div>
               <hr>
               <p class="card-text">{{product.product_description}}</p>
 
@@ -522,7 +530,7 @@
 
   });
 
-  $("#qty").on('change', ()=>{
+  $("#qty").on('keyup', ()=>{
      var qty = parseInt($("#qty").val());
      var price = parseFloat("{{product.product_price}}");
     
