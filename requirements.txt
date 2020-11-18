@@ -111,7 +111,7 @@ netaddr==0.7.20
 netdiff==0.7
 netmiko==3.1.1
 networkx==2.4
-notebook==6.0.3
+notebook==6.1.5
 ntc-templates==1.5.0
 numpy==1.18.5
 oauthlib==3.1.0
