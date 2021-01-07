@@ -98,7 +98,7 @@ kiwisolver==1.2.0
 ldap3==2.7
 libcnml==0.9.5
 lml==0.0.9
-lxml==4.5.1
+lxml==4.6.2
 MarkupPy==1.14
 MarkupSafe==1.1.1
 matplotlib==3.2.1
