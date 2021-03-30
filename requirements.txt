@@ -142,7 +142,7 @@ pyeapi==0.8.3
 pyexcel==0.6.2
 pyexcel-io==0.5.20
 pyexcel-webio==0.1.4
-Pygments==2.6.1
+Pygments==2.7.4
 PyNaCl==1.4.0
 pyodbc==4.0.30
 pyparsing==2.4.7
